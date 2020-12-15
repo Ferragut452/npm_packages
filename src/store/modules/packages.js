@@ -4,39 +4,35 @@ const packages = {
   namespaced: true,
   state: {
     packages: [],
-    package: null,
-    packageModal: false
+    currentPackage: null,
   },
   mutations: {
     setPackages(state, payload) {
       state.packages = payload;
     },
     setPackage(state, payload) {
-      state.package = payload;
-    },
-    setPackageModal(state) {
-      state.packageModal = !state.packageModal;
+      state.currentPackage = payload;
     },
   },
   actions: {
-    getPackages({ commit, rootState }, query) {
+    getPackages({ commit }, query) {
       return $http
         .get(
           `/search?q=${query}&size=250`
         )
         .then((res) => {
-          console.log("test list", res.data.results);
           commit("setPackages", res.data.results);
           return res.data.results;
         }).catch(error => console.log(error));
     },
-    getPackage({ commit, rootState }, currentPackage) {
+    getPackage({ commit }, pack) {
       return $http
         .get(
-          `/package/${currentPackage}`
+          `/package/${pack}`
         )
         .then((res) => {
           console.log("test item", res.data);
+          commit("setPackage", res.data.results);
           return res.data;
         }).catch(error => console.log(error));
     },

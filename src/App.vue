@@ -30,16 +30,6 @@
   </v-app>
 </template>
 
-<script>
-import Search from "@/components/packages/Search.vue";
-
-export default {
-  components: {
-    Search,
-  },
-};
-</script>
-
 <style lang="scss">
 .v-application {
   font-size: 14px !important;

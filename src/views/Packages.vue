@@ -1,6 +1,9 @@
 <template>
   <div>
-    <PackagesList :packages="packages"></PackagesList>
+    <PackagesList
+      @updatePackages="updatePackages"
+      :packages="packages"
+    ></PackagesList>
     <PackagesModal v-if="currentPackage"></PackagesModal>
   </div>
 </template>
@@ -16,19 +19,25 @@ export default {
     PackagesList,
     PackagesModal,
   },
-  //   data() {
-  //     return {
-  //       currentPackage: null,
-  //     };
-  //   },
+  data() {
+    return {
+      search: "",
+    };
+  },
   computed: {
-    ...mapState(("packages", ["packages"])),
+    ...mapState(("packages", ["packages", "currentPackage"])),
   },
   methods: {
+    ...mapMutations("packages", ["setPackages"]),
     ...mapActions("packages", ["getPackage", "getPackages"]),
+    updatePackages(query) {
+      if (!query) {
+        this.setPackages([]);
+        return;
+      }
+      this.getPackages(query);
+    },
   },
-  mounted() {
-    this.getPackages("angular").then((data) => console.log(data));
-  },
+  mounted() {},
 };
 </script>

@@ -33,7 +33,7 @@
       </v-list-item>
 
       <v-list-item>
-        <v-list-item-content class="table-label">Link:</v-list-item-content>
+        <v-list-item-content class="table-label">Package:</v-list-item-content>
         <v-list-item-content class="align-end">
           <a class="table-overflow" :href="card.links.npm">{{
             card.links.npm

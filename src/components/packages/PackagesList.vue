@@ -5,12 +5,11 @@
       :items-per-page.sync="itemsPerPage"
       hide-default-footer
       :page="page"
-      :search="search"
     >
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1">
           <v-text-field
-            v-model="search"
+            @input="updateList($event)"
             clearable
             flat
             solo-inverted
@@ -36,9 +35,9 @@
         </v-row>
       </template>
 
-      <template v-slot:footer>
+      <template v-if="packages.packages.length > 0" v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
-          <span class="grey--text">Items per page</span>
+          <span class="grey--text">Cards per page</span>
           <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -92,14 +91,13 @@ import PackagesCard from "@/components/packages/PackagesCard.vue";
 
 export default {
   name: "PackagesList",
-  props: ["packages"],
+  props: ["packages", "value"],
   components: {
     PackagesCard,
   },
   data() {
     return {
       itemsPerPageArray: [4, 8, 12],
-      search: "",
       page: 1,
       itemsPerPage: 8,
     };
@@ -113,6 +111,10 @@ export default {
     },
   },
   methods: {
+    updateList(ev) {
+      this.$emit("updatePackages", ev);
+      this.page = 1;
+    },
     nextPage() {
       if (this.page + 1 <= this.numberOfPages) this.page += 1;
     },
