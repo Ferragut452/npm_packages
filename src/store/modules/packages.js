@@ -31,9 +31,8 @@ const packages = {
           `/package/${pack}`
         )
         .then((res) => {
-          console.log("test item", res.data);
-          commit("setPackage", res.data.results);
-          return res.data;
+          commit("setPackage", res.data.collected);
+          return res.data.collected;
         }).catch(error => console.log(error));
     },
   },

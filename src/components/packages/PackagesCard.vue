@@ -41,28 +41,60 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <div class="pa-4">
+      <v-row align="center" justify="space-around">
+        <v-btn
+          @click.stop="openPackage(card.name)"
+          small
+          depressed
+          color="primary"
+        >
+          Open
+        </v-btn>
+
+        <v-dialog v-model="dialog" persistent max-width="400">
+          <PackagesModal
+            v-if="currentPackage"
+            :pack="currentPackage"
+            @close="Close()"
+          ></PackagesModal>
+        </v-dialog>
+      </v-row>
+    </div>
   </v-card>
 </template>
 
 <script>
+import PackagesModal from "@/components/packages/PackagesModal.vue";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "PackagesCard",
   props: ["card"],
+  data() {
+    return {
+      dialog: false,
+    };
+  },
+  components: {
+    PackagesModal,
+  },
+  computed: {
+    ...mapState("packages", ["currentPackage"]),
+  },
+  methods: {
+    ...mapMutations("packages", ["setPackage"]),
+    ...mapActions("packages", ["getPackage"]),
+    Close() {
+      this.dialog = false;
+      this.setPackage(null);
+    },
+    openPackage(name) {
+      this.dialog = true;
+      this.getPackage(encodeURIComponent(name));
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.table-label {
-  max-width: 30%;
-  padding-right: 10px !important;
-  font-size: 12px;
-  color: rgb(141, 141, 141);
-}
-
-.table-overflow {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis;
-}
 </style>

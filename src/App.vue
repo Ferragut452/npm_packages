@@ -1,32 +1,20 @@
 <template>
-  <!-- <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div> -->
   <v-app>
-    <!-- <v-navigation-drawer app>
-      <h2>Drawer</h2>
-    </v-navigation-drawer> -->
-
-    <!-- <v-app-bar color="indigo darken-2" dark app>
-      <v-toolbar-title class="text-uppercase">jsdelivr</v-toolbar-title>
-    </v-app-bar> -->
-
-    <!-- Sizes your content based upon application components -->
     <v-main>
-      <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <!-- If using vue-router -->
         <router-view></router-view>
       </v-container>
     </v-main>
-
-    <!-- <v-footer color="indigo darken-2" dark app>
-      <v-toolbar-title>Footer</v-toolbar-title>
-    </v-footer> -->
+    <v-footer color="blue darken-3" padless>
+      <v-row justify="center" no-gutters>
+        <v-col class="blue darken-3 py-4 text-center white--text" cols="12">
+          <strong class="my-name">Oleg Davydov</strong>
+          <a class="white--text" href="https://github.com/Ferragut452"
+            >Github</a
+          >
+        </v-col>
+      </v-row>
+    </v-footer>
   </v-app>
 </template>
 
@@ -45,24 +33,22 @@
     padding-top: 0;
   }
 }
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-// }
 
-// #nav {
-//   padding: 30px;
+.table-label {
+  max-width: 30%;
+  padding-right: 10px !important;
+  font-size: 12px;
+  color: rgb(141, 141, 141);
+}
 
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
+.table-overflow {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
 
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-//   }
-// }
+.my-name {
+  margin-right: 10px;
+}
 </style>

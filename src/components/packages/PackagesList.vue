@@ -1,22 +1,29 @@
 <template>
   <v-container fluid>
     <v-data-iterator
-      :items="packages.packages"
+      :items="packages"
       :items-per-page.sync="itemsPerPage"
       hide-default-footer
       :page="page"
     >
       <template v-slot:header>
         <v-toolbar dark color="blue darken-3" class="mb-1">
-          <v-text-field
-            @input="updateList($event)"
-            clearable
-            flat
-            solo-inverted
-            hide-details
-            prepend-inner-icon="mdi-magnify"
-            label="Search"
-          ></v-text-field>
+          <v-row no-gutters>
+            <v-col cols="3">
+              <v-toolbar-title class="logo">NPM Search</v-toolbar-title>
+            </v-col>
+            <v-col cols="9"
+              ><v-text-field
+                @input="updateList($event)"
+                clearable
+                flat
+                solo-inverted
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                label="Search"
+              ></v-text-field
+            ></v-col>
+          </v-row>
         </v-toolbar>
       </template>
 
@@ -35,7 +42,7 @@
         </v-row>
       </template>
 
-      <template v-if="packages.packages.length > 0" v-slot:footer>
+      <template v-if="packages.length > 0" v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
           <span class="grey--text">Cards per page</span>
           <v-menu offset-y>
@@ -91,7 +98,7 @@ import PackagesCard from "@/components/packages/PackagesCard.vue";
 
 export default {
   name: "PackagesList",
-  props: ["packages", "value"],
+  props: ["packages"],
   components: {
     PackagesCard,
   },
@@ -104,7 +111,7 @@ export default {
   },
   computed: {
     numberOfPages() {
-      return Math.ceil(this.packages.packages.length / this.itemsPerPage);
+      return Math.ceil(this.packages.length / this.itemsPerPage);
     },
     filteredKeys() {
       return this.keys.filter((key) => key !== "Name");
@@ -127,3 +134,13 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss" scoped>
+.logo {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+</style>
+
